@@ -1,0 +1,156 @@
+<html>
+<head>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href={{url_for('static', filename="custom.css")}}>
+  <title>Words</title>
+</head>
+<body>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+  <script type=text/javascript>
+  $(function() {
+    $('button#btn-anagram').bind('click', function() {
+      $.getJSON('http://localhost:5000/wordsjson', {
+        word: $('input[name="word-anagram"]').val(),
+        type: 'anagram'}, function(data) {
+        $("#res-anagram").html(data.result);
+        $('#res-anagram').attr('class', data.css)
+      });
+      return false;
+    });
+
+    $('button#btn-containing').bind('click', function() {
+      $.getJSON('http://localhost:5000/wordsjson', {
+        word: $('input[name="word-containing"]').val(),
+        type: 'containing'}, function(data) {
+        $("#res-containing").html(data.result);
+        $('#res-containing').attr('class', data.css)
+      });
+      return false;
+    });
+
+    $('button#btn-regex').bind('click', function() {
+      $.getJSON('http://localhost:5000/wordsjson', {
+        word: $('input[name="word-regex"]').val(),
+        type: 'regex'}, function(data) {
+        $("#res-regex").html(data.result);
+        $('#res-regex').attr('class', data.css)
+      });
+      return false;
+    });
+
+    $('button#btn-starts').bind('click', function() {
+      $.getJSON('http://localhost:5000/wordsjson', {
+        word: $('input[name="word-starts"]').val(),
+        type: 'starts'}, function(data) {
+        $("#res-starts").html(data.result);
+        $('#res-starts').attr('class', data.css)
+      });
+      return false;
+    });
+
+    $('button#btn-ends').bind('click', function() {
+      $.getJSON('http://localhost:5000/wordsjson', {
+        word: $('input[name="word-ends"]').val(),
+        type: 'ends'}, function(data) {
+        $("#res-ends").html(data.result);
+        $('#res-ends').attr('class', data.css)
+      });
+      return false;
+    });
+
+  });
+</script>
+<div class="container">
+<div class='text-center'>
+<!-- Tab panes -->
+<h1>Scrabble Word Finders</h1>
+<div id="content">
+   <ul id="tabs" class="nav nav-tabs nav-justified" data-tabs="tabs">
+       <li class="active"><a href="#anagram" data-toggle="tab">Anagram</a></li>
+       <li><a href="#containing" data-toggle="tab">Containing</a></li>
+       <li><a href="#starts" data-toggle="tab">Starts with</a></li>
+       <li><a href="#ends" data-toggle="tab">Ends with</a></li>
+       <li><a href="#regexp" data-toggle="tab">Regexp</a></li>
+   </ul>
+   <div id="my-tab-content" class="tab-content">
+       <div class="tab-pane active" id="anagram">
+          <h1>Anagram</h1>
+
+          <form role='form' id='form-anagram' method='post' action='words' >
+            <input type='text' name='word-anagram' class='input-lg' />
+            <button id='btn-anagram' type="submit" class="btn btn-lg btn-success">Find Anagrams</button>
+          </form>
+          <div class='result col-md-4 col-md-offset-4'>
+
+          <p class='bg-success' id='res-anagram'></p>
+        </div>
+       </div>
+       <div class="tab-pane" id="containing">
+           <h1>Containing</h1>
+
+          <form role='form' id='form-containing' method='post' action='words' >
+            <input type='text' name='word-containing' class='input-lg' />
+            <button id='btn-containing' type="submit" class="btn btn-lg btn-success">Find Words Containing</button>
+          </form>
+          <div class='result col-md-4 col-md-offset-4'>
+          <p class='bg-success' id='res-containing'></p>
+        </div>
+       </div>
+       <div class="tab-pane" id="starts">
+           <h1>Starts With</h1>
+
+          <form role='form' id='form-starts' method='post' action='words' >
+            <input type='text' name='word-starts' class='input-lg' />
+            <button id='btn-starts' type="submit" class="btn btn-lg btn-success">Find Words</button>
+          </form>
+          <div class='result col-md-4 col-md-offset-4'>
+          <p class='bg-success' id='res-starts'></p>
+        </div>
+       </div>
+       <div class="tab-pane" id="ends">
+           <h1>Ends With</h1>
+
+          <form role='form' id='form-ends' method='post' action='words' >
+            <input type='text' name='word-ends' class='input-lg' />
+            <button id='btn-ends' type="submit" class="btn btn-lg btn-success">Find Words</button>
+          </form>
+          <div class='result col-md-4 col-md-offset-4'>
+          <p class='bg-success' id='res-ends'></p>
+        </div>
+       </div>
+       <div class="tab-pane" id="regexp">
+              <h1>Regexp</h1>
+
+             <form role='form' id='form-regex' method='post' action='words' >
+               <input type='text' name='word-regex' class='input-lg' />
+               <button id='btn-regex' type="submit" class="btn btn-lg btn-success">Find Regex</button>
+             </form>
+             <div class='result col-md-4 col-md-offset-4'>
+             <p class='bg-success' id='res-regex'></p>
+           </div>
+       </div>
+   </div>
+</div>
+
+
+      
+</div>
+</div>
+
+<div id='footer'>
+  <div class='col-md-6'>
+  <p class='vertical-align: center'>
+Created by <a href="http://rtwilson.com">Robin Wilson</a></p>
+</div>
+<div class='col-md-6'>
+  <p class='text-right'>
+Using the <a href="http://en.wikipedia.org/wiki/SOWPODS">SOWPODS</a> Scrabble Word List</p>
+</div>
+</div>
+
+</body>
+</html>
