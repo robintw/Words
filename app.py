@@ -3,7 +3,6 @@ from collections import defaultdict
 import sqlite3
 import re
 
-
 app = Flask(__name__)
 
 @app.route('/index')

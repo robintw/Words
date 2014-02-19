@@ -11,9 +11,13 @@
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
   <script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+
+  <script type=text/javascript>
   $(function() {
     $('button#btn-anagram').bind('click', function() {
-      $.getJSON('http://localhost:5000/wordsjson', {
+      $.getJSON($SCRIPT_ROOT + '/wordsjson', {
         word: $('input[name="word-anagram"]').val(),
         type: 'anagram'}, function(data) {
         $("#res-anagram").html(data.result);
@@ -23,7 +27,7 @@
     });
 
     $('button#btn-containing').bind('click', function() {
-      $.getJSON('http://localhost:5000/wordsjson', {
+      $.getJSON($SCRIPT_ROOT + '/wordsjson', {
         word: $('input[name="word-containing"]').val(),
         type: 'containing'}, function(data) {
         $("#res-containing").html(data.result);
@@ -33,7 +37,7 @@
     });
 
     $('button#btn-regex').bind('click', function() {
-      $.getJSON('http://localhost:5000/wordsjson', {
+      $.getJSON($SCRIPT_ROOT + '/wordsjson', {
         word: $('input[name="word-regex"]').val(),
         type: 'regex'}, function(data) {
         $("#res-regex").html(data.result);
@@ -43,7 +47,7 @@
     });
 
     $('button#btn-starts').bind('click', function() {
-      $.getJSON('http://localhost:5000/wordsjson', {
+      $.getJSON($SCRIPT_ROOT + '/wordsjson', {
         word: $('input[name="word-starts"]').val(),
         type: 'starts'}, function(data) {
         $("#res-starts").html(data.result);
@@ -53,7 +57,7 @@
     });
 
     $('button#btn-ends').bind('click', function() {
-      $.getJSON('http://localhost:5000/wordsjson', {
+      $.getJSON($SCRIPT_ROOT + '/wordsjson', {
         word: $('input[name="word-ends"]').val(),
         type: 'ends'}, function(data) {
         $("#res-ends").html(data.result);
